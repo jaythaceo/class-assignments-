@@ -1,7 +1,5 @@
-fname = raw_input("Enter file name: ")
-fh = open(fname)
-numberOfLines = 0
+wordFile = 'words.txt'
+openfile = open(wordFile)
+for i in openfile:
+  print i.upper()
 
-for line in fh:
-  numberOfLines = numberOfLines + 1
-print "Line count: ", numberOfLines
