@@ -195,6 +195,36 @@ class BinarySearchTree(object):
         raise KeyError("Key %r not found in BST" % sort_key)
 
     # Add pop-node here
+    def _pop_node(self, node):
+        """
+        Delete the given node, and return it's value
+        """
+        value = node[_VALUE]
+        if node[_LEFT]:
+            if node[_RIGHT]:
+                # This node has a left child and a right child; find
+                # the node's successor, and replace the node's value
+                # with its successor's value.  Then replace the
+                # sucessor with its right child (the sucessor is
+                # guaranteed not to have a left child).  Note: node
+                # and successor may not be the same length (3 vs 4)
+                # because of the key-equal-to-value optimization; so
+                # we have to be a little careful here.
+                successor = node[_RIGHT]
+                while successor[_LEFT]: successor = successor[_LEFT]
+                node[2:] = successor[2:] # copy value & key
+                successor[:] = successor[_RIGHT]
+            else:
+                node[:] = node[_LEFT]
+        else:
+            if node[_RIGHT]:
+                node[:] = node[_RIGHT]
+            else:
+                del node[:]
+        self._len -= 1
+        return value
+
+
 
     def _iter(self, pre, post):
         # Helper for sorted iterators.
@@ -245,6 +275,7 @@ class BinarySearchTree(object):
                 bot_lines.append(indent+'\\'+m)
                 bot_lines += [indent+' '+line for line in b]
             return (top_lines, mid_line, bot_lines)
+
 
 try:
 
