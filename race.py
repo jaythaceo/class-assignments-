@@ -2,26 +2,6 @@
 Binary Search Tree: A sorted collection of values that supports
 efficient insertion, deletion, and minimum/maximum value finding.
 """
-# Copyright (C) 2008 by Edward Loper
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
-
 
 # IMPLEMENTATION NOTES:
 #
@@ -40,11 +20,6 @@ efficient insertion, deletion, and minimum/maximum value finding.
 #
 #     [left_child, right_child, value]
 #
-# The following constants are used to access the pieces of each search
-# node.  If the constant-binding optimization recipe (which can be
-# downloaded from <http://code.activestate.com/recipes/277940/>) is
-# available, then it is used to replace these constants at
-# import-time, increasing the binary search tree efficiency by 3-5%.
 _LEFT = 0
 _RIGHT = 1
 _VALUE = 2
@@ -219,39 +194,7 @@ class BinarySearchTree(object):
                 return node
         raise KeyError("Key %r not found in BST" % sort_key)
 
-    def _pop_node(self, node):
-        """
-        Delete the given node, and return its value.
-        """
-        value = node[_VALUE]
-        if node[_LEFT]:
-            if node[_RIGHT]:
-                # This node has a left child and a right child; find
-                # the node's successor, and replace the node's value
-                # with its successor's value.  Then replace the
-                # sucessor with its right child (the sucessor is
-                # guaranteed not to have a left child).  Note: node
-                # and successor may not be the same length (3 vs 4)
-                # because of the key-equal-to-value optimization; so
-                # we have to be a little careful here.
-                successor = node[_RIGHT]
-                while successor[_LEFT]: successor = successor[_LEFT]
-                node[2:] = successor[2:] # copy value & key
-                successor[:] = successor[_RIGHT]
-            else:
-                # This node has a left child only; replace it with
-                # that child.
-                node[:] = node[_LEFT]
-        else:
-            if node[_RIGHT]:
-                # This node has a right child only; replace it with
-                # that child.
-                node[:] = node[_RIGHT]
-            else:
-                # This node has no children; make it empty.
-                del node[:]
-        self._len -= 1
-        return value
+    # Add pop-node here
 
     def _iter(self, pre, post):
         # Helper for sorted iterators.
@@ -304,10 +247,7 @@ class BinarySearchTree(object):
             return (top_lines, mid_line, bot_lines)
 
 try:
-    # Try to use the python recipe:
-    # <http://code.activestate.com/recipes/277940/>
-    # This will only work if that recipe has been saved a
-    # "optimize_constants.py".
+
     from optimize_constants import bind_all
     bind_all(BinarySearchTree)
 except:

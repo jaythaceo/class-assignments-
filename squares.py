@@ -16,8 +16,6 @@ def is_prime(num):
             return False
     return True
 
-
-
 def main(argv):
     if (len(sys.argv) != 2):
         sys.exit('Usage: prime_numbers6.py <num_digits>')
@@ -36,8 +34,6 @@ def main(argv):
         if is_prime(num):
             print 'A random ' + str(digits) + ' digits prime number is: ' + str(num)
             done = True
-
-
 
 if __name__ == "__main__":
     main(sys.argv[1:])
