@@ -276,7 +276,6 @@ class BinarySearchTree(object):
                 bot_lines += [indent+' '+line for line in b]
             return (top_lines, mid_line, bot_lines)
 
-
 try:
 
     from optimize_constants import bind_all
