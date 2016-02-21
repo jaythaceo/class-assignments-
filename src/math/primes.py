@@ -20,3 +20,5 @@ def primes(n):
     i = i + 1
     m = 2 * 1 + 3
   return [2] + [x for x in s if x]
+
+print primes(10)
