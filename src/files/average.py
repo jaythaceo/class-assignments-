@@ -11,3 +11,8 @@ for line in fh:
   count =  count + 1
   numbers =  float(line) / count
 print numbers
+
+def test(h):
+    """something test"""
+    h = "hello"
+    return h
